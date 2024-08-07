@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - My Library</title>
+    <link rel="stylesheet" href="payment.css">
+    <style>
+        /* Add custom styles here */
+        .payment-option {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .payment-option img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <h1>My Library</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                    <li><a href="login.html" id="logout">Logout</a></li> 
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <main class="main-content">
+            <h2>Payment</h2>
+            <div class="payment-details">
+                <img id="book-cover" src="" alt="Book Cover">
+                <p id="book-title">Title: </p>
+                <p id="book-price">Price: </p>
+                <form id="payment-form">
+                    <label for="card-number">Card Number:</label>
+                    <input type="text" id="card-number" name="card-number" required>
+                    
+                    <label for="expiry-date">Expiry Date:</label>
+                    <input type="text" id="expiry-date" name="expiry-date" required>
+                    
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" required>
+                    
+                    <button type="submit" class="btn">Pay</button>
+                </form>
+            </div>
+
+            <!-- Payment Options -->
+            <div class="payment-options">
+                <section class="payment-option">
+                    <img src="paymentlogo/phonepe-logo.png" alt="PhonePe Logo">
+                    <p>Pay with PhonePe for a convenient and secure transaction.</p>
+                    <button type="submit" class="btn">Pay with PhonePe</button>
+                </section>
+
+                <section class="payment-option">
+                    <img src="paymentlogo/paytm-logo.png" alt="Paytm Logo">
+                    <p>Use Paytm Wallet or UPI to complete your payment.</p>
+                    <button type="submit" class="btn">Pay with Paytm</button>
+                </section>
+
+                <section class="payment-option">
+                    <img src="paymentlogo/paypal-logo.png" alt="PayPal Logo">
+                    <p>Securely pay with PayPal. You can also use your credit card.</p>
+                    <button type="submit" class="btn">Pay with PayPal</button>
+                </section>
+
+                <section class="payment-option">
+                    <img src="paymentlogo/googlepay-logo.png" alt="Google Pay Logo">
+                    <p>Securely pay with Google Pay. You can also use your credit card.</p>
+                    <button type="submit" class="btn">Pay with Google Pay</button>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <p>&copy; 2024 My Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookTitle = urlParams.get('title');
+        const bookCover = urlParams.get('cover');
+        const bookPrice = urlParams.get('price');
+        const bookPDF = urlParams.get('pdf');
+    
+        // Debugging: Log the URL parameters
+        console.log('Payment Page - Book Title:', bookTitle);
+        console.log('Payment Page - Book Cover:', bookCover);
+        console.log('Payment Page - Book Price:', bookPrice);
+        console.log('Payment Page - Book PDF:', bookPDF);
+    
+        // Display book details
+        document.getElementById('book-title').textContent = `Title: ${bookTitle || 'No title provided'}`;
+        document.getElementById('book-price').textContent = `Price: $${bookPrice || 'N/A'}`;
+    
+        if (bookCover) {
+            try {
+                document.getElementById('book-cover').src = decodeURIComponent(bookCover);
+            } catch (error) {
+                console.error('Error decoding book cover URL:', error);
+                document.getElementById('book-cover').src = ''; // Set a fallback or clear the image
+            }
+        } else {
+            console.warn('No book cover URL provided');
+            document.getElementById('book-cover').src = ''; // Set a fallback or clear the image
+        }
+    
+        // Handle form submission
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            // Simulate payment processing (replace with actual payment logic)
+            simulatePaymentProcessing(bookTitle);
+        });
+    
+        // Simulate payment processing (replace with actual payment logic)
+        function simulatePaymentProcessing(bookTitle) {
+            // Replace this with actual payment processing logic using payment gateway APIs
+            setTimeout(function() {
+                // Simulate payment success
+                alert(`Payment successful! You can now download your book: ${bookTitle}`);
+                // Redirect to download page after payment success
+                window.location.href = `download.html?title=${bookTitle}&cover=${bookCover}&pdf=${bookPDF}`;
+            }, 2000); // Simulate 2 seconds of payment processing delay
+        }
+    </script>
+    
+</body>
+</html>

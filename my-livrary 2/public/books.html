@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - My Library</title>
+    <link rel="stylesheet" href="books.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <h1>My Library</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="books.html" class="active">Books</a></li>
+                    <li><a href="wishlist.html">Wishlist</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <a href="users.html" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="login.html" id="logout" aria-label="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Bar Section -->
+    <div class="search-bar-container">
+        <input type="text" id="search-bar" placeholder="Search for books...">
+        <button id="search-btn">Search</button>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <main class="main-content">
+            <h2>Books</h2>
+            <div id="book-list" class="books-list"></div>
+            <!-- Repeat similar blocks for other books with appropriate changes in book-id, image source, titles, and prices -->
+        </main>
+    </div>
+            
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <p>&copy; 2024 My Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Function to fetch and append books from pythoncoded.html
+        function loadBooks() {
+            fetch('pythoncoded.html')
+            .then(response => response.text())
+            .then(data => {
+                // Create a temporary element to parse the HTML string
+                let tempElement = document.createElement('div');
+                tempElement.innerHTML = data;
+
+                // Select all book items from the parsed HTML
+                let bookItems = tempElement.querySelectorAll('.book-item');
+
+                // Append each book item to the book-list container in books.html
+                let bookListContainer = document.getElementById('book-list');
+                bookItems.forEach(bookItem => {
+                    bookListContainer.appendChild(bookItem);
+                });
+                    
+                // Log success message to console
+                console.log('Books loaded successfully.');
+                    
+                // Initialize wishlist functionality after books are loaded
+                initializeWishlistButtons();
+            })
+            .catch(error => console.error('Error loading books:', error));
+        }
+        
+        // Load books when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            loadBooks();
+        });
+
+        // Handle redirecting the data such as book title, book cover page, book price, book pdf to payment.html page
+        function redirectToPaymentPage(button){
+            const bookItem = button.closest('.book-item');
+            const bookTitle = encodeURIComponent(bookItem.dataset.bookTitle);
+            const bookCover = encodeURIComponent(bookItem.dataset.bookCover);
+            const bookPrice = encodeURIComponent(bookItem.dataset.bookPrice);
+            const bookPDF = encodeURIComponent(bookItem.dataset.bookPdf);
+            window.location.href = `payment.html?title=${bookTitle}&cover=${bookCover}&price=${bookPrice}&pdf=${bookPDF}`;    
+        }
+
+        // Wishlist functionality
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+        function addToWishlist(book) {
+            wishlist.push(book);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function removeFromWishlist(bookId) {
+            wishlist = wishlist.filter(book => book.id !== bookId);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function toggleWishlist(button) {
+            const bookItem = button.closest('.book-item');
+            const bookId = bookItem.getAttribute('data-book-id');
+            const bookTitle = bookItem.getAttribute('data-book-title');
+            const bookAuthor = bookItem.getAttribute('data-book-author');
+            const bookCover = bookItem.getAttribute('data-book-cover');
+            const bookPrice = bookItem.getAttribute('data-book-price');
+            const bookPdf = bookItem.getAttribute('data-book-pdf');
+
+            const book = {
+                id: bookId,
+                title: bookTitle,
+                author: bookAuthor,
+                cover: bookCover,
+                price: bookPrice,
+                pdf: bookPdf
+            };
+
+            if (!wishlist.some(item => item.id === bookId)) {
+                addToWishlist(book);
+                button.classList.add('added');
+            } else {
+                removeFromWishlist(bookId);
+                button.classList.remove('added');
+            }
+        }
+
+        function initializeWishlistButtons() {
+            document.querySelectorAll('.wishlist-btn').forEach(button => {
+                const bookItem = button.closest('.book-item');
+                const bookId = bookItem.getAttribute('data-book-id');
+
+                if (wishlist.some(item => item.id === bookId)) {
+                    button.classList.add('added');
+                }
+
+                button.addEventListener('click', () => toggleWishlist(button));
+            });
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+/* General styles */
+/* Body and container styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-inner .logo h1 {
+    margin: 0;
+}
+
+.header-inner .navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.header-inner .navigation ul li {
+    margin-left: 20px;
+}
+
+.header-inner .navigation ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-inner .navigation ul li a.active {
+    text-decoration: none;
+    font-weight: bold;
+    color: #ff6347; /* Use any color you like */
+    border-bottom: 2px solid #ff6347; /* Use any color you like */
+    padding-bottom: 2px; /* Adjust the padding if needed */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Creates a shadow effect */
+    font-style: italic;
+}
+
+.header-inner .navigation ul li a:hover {
+    text-decoration: none;
+}
+
+.navigation li {
+    margin-right: 20px;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.navigation a:hover {
+    background: #444;
+    border-radius: 5px;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    background: #444;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile a {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.user-profile a i {
+    margin-right: 8px;
+}
+
+/* Container styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Sidebar styles */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    width: 250px;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 60px; /* Adjust this according to your header height */
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #555;
+}
+
+.sidebar ul li a.active {
+    background-color: #555;
+}
+
+/* Search bar styles */
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-bar-container input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.search-bar-container button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search-bar-container button:hover {
+    background-color: #555;
+}
+
+/* Main content styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-content h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #343131; /* Stylish border for emphasis */
+    padding-bottom: 10px;
+    font-weight: bold; /* Bold text for header */
+}
+
+.books-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Ensures even spacing between items */
+    margin-top: 20px;
+}
+
+.book-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: calc(22% - 17px); /* Adjusted width for 4 items per row */
+    margin-bottom: 35px; /* Spacing between rows */
+    display: flex;
+    flex-direction: column;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-cover {
+    position: relative;
+    text-align: center;
+    padding: 10px;
+    flex-grow: 1;
+}
+
+.book-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 4; /* Ensure consistent aspect ratio */
+    object-fit: cover;
+}
+
+/* Book Details */
+.book-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px; /* Fixed height for consistent layout */
+}
+
+.book-info h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+}
+
+.book-info p {
+    font-size: 14px;
+    color: #777;
+    text-transform: uppercase;
+}
+
+.book-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto; /* Push buttons to the bottom */
+}
+
+.book-buttons .btn {
+    flex-grow: 1; /* Equal width for buttons */
+    margin-right: 5px; /* Adjust spacing between buttons */
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.book-buttons .btn.read-btn {
+    background-color: #4CAF50;
+}
+
+.book-buttons .btn.buy-btn {
+    background-color: #2196F3;
+}
+
+.book-buttons .btn.wishlist-btn {
+    background-color: transparent;
+    color: #555;
+}
+
+.book-buttons .btn:hover {
+    opacity: 0.9; /* Reduce opacity on hover */
+}
+
+.book-buttons .wishlist-btn .fa-heart {
+    color: #3e3a3a;
+    transition: color 0.3s;
+}
+
+.book-buttons .wishlist-btn:hover .fa-heart {
+    color: red; /* Red on hover */
+}
+
+.book-buttons .wishlist-btn.added .fa-heart {
+    color: red; /* Red when added to wishlist */
+}
+
+p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Footer styles */
+.footer {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-inner {
+    width: 80%;
+    margin: auto;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-links li {
+    margin-right: 20px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer p {
+    margin: 10px 0 0 0;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .book-item {
+        width: calc(50% - 20px); /* Two columns for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-inner .navigation ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .header-inner .navigation ul li {
+        margin: 10px 0;
+    }
+
+    .search-bar-container {
+        flex-direction: column;
+    }
+
+    .search-bar-container input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .book-item {
+        width: 100%; /* Full width for small screens */
+    }
+
+    .book-buttons {
+        flex-direction: column;
+        align-items: stretch; /* Stretch buttons vertically */
+    }
+
+    .book-buttons .btn {
+        width: 100%;
+        margin-bottom: 10px; /* Space between buttons on small screens */
+    }
+}
+

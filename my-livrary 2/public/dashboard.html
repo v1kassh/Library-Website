@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - My Library</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <h1>My Library</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="wishlist.html">Wishlist</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <a href="users.html" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="login.html" id="logout" aria-label="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Search Bar Section -->
+    <div class="search-bar-container">
+        <input type="text" id="search-bar" placeholder="Search for books...">
+        <button id="search-btn">Search</button>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <main class="main-content">
+            <h2>Dashboard Overview</h2>
+            <div class="summary">
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="summary-info">
+                        <h3>Total Books</h3>
+                        <p id="total-books">Loading...</p>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="summary-info">
+                        <h3>Total Users</h3>
+                        <p id="total-users">Loading...</p>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="summary-info">
+                        <h3>Revenue</h3>
+                        <p id="total-revenue">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <p>&copy; 2024 My Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script Tags -->
+    <script src="dashboard.js"></script>
+</body>
+</html>

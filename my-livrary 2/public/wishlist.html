@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - My Library</title>
+    <link rel="stylesheet" href="wishlist.css">
+    <!-- Font Awesome for heart icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="theme.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <h1>My Library</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="wishlist.html" class="active">Wishlist</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <a href="users.html" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="login.html" id="logout" aria-label="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <main class="main-content">
+            <h2>Wishlist</h2>
+            <div id="wishlist" class="books-list"></div>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <p>&copy; 2024 My Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to load wishlist items from local storage and display them
+        function loadWishlist() {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const wishlistContainer = document.getElementById('wishlist');
+
+            wishlist.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.classList.add('book-item');
+                bookItem.setAttribute('data-book-id', book.id);
+                bookItem.setAttribute('data-book-title', book.title);
+                bookItem.setAttribute('data-book-author', book.author);
+                bookItem.setAttribute('data-book-cover', book.cover);
+                bookItem.setAttribute('data-book-price', book.price);
+                bookItem.setAttribute('data-book-pdf', book.pdf);
+
+                bookItem.innerHTML = `
+                    <div class="book-cover">
+                        <img src="${book.cover}" alt="${book.title}">
+                    </div>
+                    <div class="book-details">
+                        <div class="book-info">
+                            <h3>${book.title}</h3>
+                            <p>${book.author}</p>
+                        </div>
+                        <div class="book-buttons">
+                            <a href="${book.pdf}" class="btn read-btn" target="_blank">Read</a>
+                            <button class="btn buy-btn" onclick="redirectToPaymentPage(this)">Buy - $${book.price}</button>
+                            <button class="wishlist-btn added" aria-label="Remove from Wishlist" onclick="toggleWishlist(this)">
+                                <i class="fa fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                wishlistContainer.appendChild(bookItem);
+            });
+        }
+
+        // Redirect to payment page
+        function redirectToPaymentPage(button) {
+            const bookItem = button.closest('.book-item');
+            const bookTitle = encodeURIComponent(bookItem.dataset.bookTitle);
+            const bookCover = encodeURIComponent(bookItem.dataset.bookCover);
+            const bookPrice = encodeURIComponent(bookItem.dataset.bookPrice);
+            const bookPDF = encodeURIComponent(bookItem.dataset.bookPdf);
+            window.location.href = `payment.html?title=${bookTitle}&cover=${bookCover}&price=${bookPrice}&pdf=${bookPDF}`;
+        }
+
+        // Initialize wishlist when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            loadWishlist();
+        });
+
+        // Wishlist functionality (reuse the function from books.html)
+        function toggleWishlist(button) {
+            const bookItem = button.closest('.book-item');
+            const bookId = bookItem.getAttribute('data-book-id');
+            const bookTitle = bookItem.getAttribute('data-book-title');
+            const bookAuthor = bookItem.getAttribute('data-book-author');
+            const bookCover = bookItem.getAttribute('data-book-cover');
+            const bookPrice = bookItem.getAttribute('data-book-price');
+            const bookPdf = bookItem.getAttribute('data-book-pdf');
+
+            const book = {
+                id: bookId,
+                title: bookTitle,
+                author: bookAuthor,
+                cover: bookCover,
+                price: bookPrice,
+                pdf: bookPdf
+            };
+
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            if (!wishlist.some(item => item.id === bookId)) {
+                wishlist.push(book);
+                button.classList.add('added');
+            } else {
+                wishlist = wishlist.filter(item => item.id !== bookId);
+                button.classList.remove('added');
+                const wishlistContainer = document.getElementById('wishlist');
+                wishlistContainer.removeChild(bookItem);
+            }
+
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+    </script>
+</body>
+</html>

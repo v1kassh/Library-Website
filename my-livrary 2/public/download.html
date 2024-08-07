@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - My Library</title>
+    <link rel="stylesheet" href="download.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <h1>My Library</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                    <li><a href="wishlist.html">Wishlist</a></li>
+                    <li><a href="login.html" id="logout">Logout</a></li> 
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <main class="main-content">
+            <h2>Download</h2>
+            <div class="download-details">
+                <img id="book-cover" src="" alt="Book Cover" style="max-width: 200px;">
+                <p id="book-title">Title: </p>
+                <!-- Initial href attribute is empty, will be set dynamically -->
+                <a id="download-link" href="" class="btn" download>Download Book</a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <p>&copy; 2024 My Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookTitle = urlParams.get('title');
+            const bookCover = urlParams.get('cover');
+            const bookPDF = urlParams.get('pdf');
+    
+            // Display book details
+            if (bookTitle) {
+                document.getElementById('book-title').textContent = `Title: ${bookTitle}`;
+            } else {
+                document.getElementById('book-title').textContent = "No book title provided";
+            }
+    
+            if (bookCover) {
+                try {
+                    const decodedCover = decodeURIComponent(bookCover);
+                    document.getElementById('book-cover').src = decodedCover;
+                    document.getElementById('book-cover').alt = `Cover of ${bookTitle || 'Unknown'}`;
+                } catch (error) {
+                    console.error('Error decoding book cover URL:', error);
+                }
+            } else {
+                console.warn('No book cover URL provided');
+            }
+    
+            // Set the href attribute of the download link to the PDF file
+            const downloadLink = document.getElementById('download-link');
+            if (bookPDF) {
+                downloadLink.href = bookPDF;
+            } else {
+                console.warn('No PDF file URL provided');
+                downloadLink.textContent = 'Download Not Available';
+                downloadLink.style.pointerEvents = 'none'; // Disable link click
+            }
+        });
+    </script>
+</body>
+</html>
